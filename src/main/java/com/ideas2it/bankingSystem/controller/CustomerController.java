@@ -1,6 +1,7 @@
 package com.ideas2it.bankingSystem.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import com.ideas2it.bankingSystem.dto.PasswordUpdateDto;
 import com.ideas2it.bankingSystem.dto.UserResponseDto;
 import com.ideas2it.bankingSystem.dto.UserUpdateDto;
 import com.ideas2it.bankingSystem.service.CustomerService;
-import com.ideas2it.bankingSystem.service.serviceImpl.BranchServiceImpl;
+import com.ideas2it.bankingSystem.service.impl.BranchServiceImpl;
 
 @RestController
 @RequestMapping("banking/api/v1/customers")
@@ -28,14 +29,14 @@ public class CustomerController {
 
     @GetMapping("/balance")
     public ResponseEntity<Double> getBalance(@RequestParam  String accountNumber) {
-        double balance = customerService.getBalance(accountNumber);
+        var balance = customerService.getBalance(accountNumber);
         LOGGER.info("Available balance in account {} ", accountNumber + "is : " + balance);
         return ResponseEntity.ok(balance);
     }
 
     @PutMapping("/updateDetails")
     public ResponseEntity<UserResponseDto> updateUserDetails(@RequestParam String accountNumber, @RequestBody UserUpdateDto userUpdateDto) {
-        UserResponseDto updatedUser = customerService.updateUserDetails(accountNumber, userUpdateDto);
+        val updatedUser = customerService.updateUserDetails(accountNumber, userUpdateDto);
         LOGGER.info("User details updated successfully!");
         return ResponseEntity.ok(updatedUser);
     }

@@ -1,9 +1,8 @@
-package com.ideas2it.bankingSystem.service.serviceImpl;
+package com.ideas2it.bankingSystem.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import com.ideas2it.bankingSystem.mapper.TransactionMapper;
 import lombok.RequiredArgsConstructor;

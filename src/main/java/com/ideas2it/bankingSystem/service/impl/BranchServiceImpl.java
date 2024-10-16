@@ -1,8 +1,7 @@
-package com.ideas2it.bankingSystem.service.serviceImpl;
+package com.ideas2it.bankingSystem.service.impl;
 
 import com.ideas2it.bankingSystem.dto.BranchDto;
 import com.ideas2it.bankingSystem.exception.ResourceNotFoundException;
-import com.ideas2it.bankingSystem.mapper.BankMapper;
 import com.ideas2it.bankingSystem.mapper.BranchMapper;
 import com.ideas2it.bankingSystem.model.Bank;
 import com.ideas2it.bankingSystem.model.Branch;

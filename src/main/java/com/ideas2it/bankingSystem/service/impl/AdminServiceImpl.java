@@ -1,4 +1,4 @@
-package com.ideas2it.bankingSystem.service.serviceImpl;
+package com.ideas2it.bankingSystem.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +18,6 @@ import com.ideas2it.bankingSystem.repository.UserRepository;
 import com.ideas2it.bankingSystem.service.AdminService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

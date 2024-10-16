@@ -1,4 +1,4 @@
-package com.ideas2it.bankingSystem.service.serviceImpl;
+package com.ideas2it.bankingSystem.service.impl;
 
 import java.util.Optional;
 
