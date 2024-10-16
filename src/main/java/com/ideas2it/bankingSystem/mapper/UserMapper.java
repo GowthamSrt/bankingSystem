@@ -1,9 +1,12 @@
 package com.ideas2it.bankingSystem.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.ideas2it.bankingSystem.dto.UserRegisterDto;
 import com.ideas2it.bankingSystem.dto.UserResponseDto;
-import com.ideas2it.bankingSystem.model.*;
-import org.springframework.stereotype.Component;
+import com.ideas2it.bankingSystem.model.Bank;
+import com.ideas2it.bankingSystem.model.Branch;
+import com.ideas2it.bankingSystem.model.User;
 
 @Component
 public class UserMapper {

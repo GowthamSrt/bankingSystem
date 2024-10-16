@@ -1,9 +1,10 @@
 package com.ideas2it.bankingSystem.configuration;
 
-import com.ideas2it.bankingSystem.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+
+import com.ideas2it.bankingSystem.service.RoleService;
 
 @Configuration
 @RequiredArgsConstructor

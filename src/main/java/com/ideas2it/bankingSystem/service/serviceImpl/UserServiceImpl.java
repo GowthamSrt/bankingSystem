@@ -3,6 +3,7 @@ package com.ideas2it.bankingSystem.service.serviceImpl;
 import java.util.Optional;
 import java.util.Random;
 
+import com.ideas2it.bankingSystem.mapper.AccountMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -106,13 +107,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private Account createAccount(User user, Bank bank, Branch branch) {
-        Account account = Account.builder()
-                .accountNumber(user.getAccountNumber())
-                .balance(0.0)
-                .user(user)
-                .branch(branch)
-                .bank(bank)
-                .build();
+        Account account = AccountMapper.createAccount(user, bank,branch);
         accountRepository.save(account);
         user.setAccount(account);
         userRepository.save(user);
@@ -120,12 +115,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserResponseDto returnUserResponseDto(User user) {
-        return UserResponseDto.builder()
-                .name(user.getName())
-                .email(user.getEmail())
-                .accountNumber(user.getAccountNumber())
-                .roleType(user.getRole().getRoleType())
-                .build();
+        return UserMapper.toDTO(user);
     }
 
     private String generateAccountNumber() {

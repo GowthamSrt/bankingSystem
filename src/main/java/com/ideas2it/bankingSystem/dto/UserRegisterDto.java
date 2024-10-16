@@ -1,6 +1,5 @@
 package com.ideas2it.bankingSystem.dto;
 
-import com.ideas2it.bankingSystem.model.RoleType;
 import lombok.Builder;
 import lombok.Data;
 

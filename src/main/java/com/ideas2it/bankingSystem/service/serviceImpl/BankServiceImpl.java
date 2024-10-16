@@ -43,7 +43,8 @@ public class BankServiceImpl implements BankService {
     public List<BankDto> getAllBanks() {
         List<BankDto> bankDtos = bankRepository.findByIsDeletedFalse()
                 .stream()
-                .map(BankMapper :: toDto).toList();
+                .map(BankMapper :: toDto)
+                .toList();
         if (bankDtos.isEmpty()) {
             LOGGER.warn("No Banks are available");
         }

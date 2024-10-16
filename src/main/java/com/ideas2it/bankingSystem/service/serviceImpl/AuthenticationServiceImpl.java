@@ -2,6 +2,7 @@ package com.ideas2it.bankingSystem.service.serviceImpl;
 
 import java.util.Optional;
 
+import com.ideas2it.bankingSystem.mapper.AuthenticationMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,15 +38,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             LOGGER.warn("Account not found with given account number");
             throw new ResourceNotFoundException("Account not found!");
         }
-        Account account = accountOpt.get();
-        return AuthenticateResponseDto.builder()
-                .bankName(user.getBank().getName())
-                .branchName(user.getBranch().getName())
-                .accountHolderName(user.getName())
-                .accountNumber(user.getAccountNumber())
-                .balance(account.getBalance())
-                .phoneNumber(user.getPhoneNumber())
-                .build();
+        return AuthenticationMapper.toDto(user);
     }
 }
 

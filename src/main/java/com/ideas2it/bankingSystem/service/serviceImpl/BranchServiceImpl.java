@@ -59,9 +59,7 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public List<BranchDto> getAllBranches() {
-        List<Branch> branches = branchRepository.findAllByIsDeletedFalse()
-                .stream()
-                .toList();
+        List<Branch> branches = branchRepository.findAllByIsDeletedFalse();
         if (branches.isEmpty()) {
             LOGGER.warn("No Branches were found");
             throw new ResourceNotFoundException("No branches were found");

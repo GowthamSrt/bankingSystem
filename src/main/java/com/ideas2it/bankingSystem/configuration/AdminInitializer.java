@@ -1,14 +1,15 @@
 package com.ideas2it.bankingSystem.configuration;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import com.ideas2it.bankingSystem.model.Role;
 import com.ideas2it.bankingSystem.model.RoleType;
 import com.ideas2it.bankingSystem.model.User;
 import com.ideas2it.bankingSystem.repository.RoleRepository;
 import com.ideas2it.bankingSystem.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
@@ -29,7 +30,6 @@ public class AdminInitializer {
             } else {
                 System.out.println("Admin exists!");
             }
-
         };
     }
 }

@@ -1,8 +1,9 @@
 package com.ideas2it.bankingSystem.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.ideas2it.bankingSystem.dto.BranchDto;
 import com.ideas2it.bankingSystem.model.Branch;
-import org.springframework.stereotype.Component;
 
 @Component
 public class BranchMapper {

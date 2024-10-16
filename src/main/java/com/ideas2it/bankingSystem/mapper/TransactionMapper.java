@@ -1,9 +1,10 @@
 package com.ideas2it.bankingSystem.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.ideas2it.bankingSystem.dto.TransactionDto;
 import com.ideas2it.bankingSystem.dto.TransactionResponseDto;
 import com.ideas2it.bankingSystem.model.Transaction;
-import org.springframework.stereotype.Component;
 
 @Component
 public class TransactionMapper {

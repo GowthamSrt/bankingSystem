@@ -1,9 +1,5 @@
 package com.ideas2it.bankingSystem.service.serviceImpl;
 
-import com.ideas2it.bankingSystem.dto.TransactionResponseDto;
-import com.ideas2it.bankingSystem.mapper.TransactionMapper;
-import com.ideas2it.bankingSystem.model.RoleType;
-import com.ideas2it.bankingSystem.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,9 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.ideas2it.bankingSystem.dto.AdminLoginDto;
 import com.ideas2it.bankingSystem.dto.AdminResponseDto;
+import com.ideas2it.bankingSystem.dto.TransactionResponseDto;
 import com.ideas2it.bankingSystem.exception.UnauthorizedException;
 import com.ideas2it.bankingSystem.mapper.AdminMapper;
+import com.ideas2it.bankingSystem.mapper.TransactionMapper;
+import com.ideas2it.bankingSystem.model.RoleType;
 import com.ideas2it.bankingSystem.model.User;
+import com.ideas2it.bankingSystem.repository.TransactionRepository;
 import com.ideas2it.bankingSystem.repository.UserRepository;
 import com.ideas2it.bankingSystem.service.AdminService;
 
@@ -42,19 +42,7 @@ public class AdminServiceImpl implements AdminService {
 
     public List<TransactionResponseDto> getAllTransactions() {
         return transactionRepository.findAll().stream()
-                .map(transaction -> TransactionResponseDto.builder()
-                        .transactionId(transaction.getTransactionId())
-                        .description(transaction.getDescription())
-                        .amount(transaction.getAmount())
-                        .transactionDate(transaction.getTransactionDate())
-                        .transactionType(transaction.getTransactionType())
-                        .senderAccountNumber(transaction.getSenderAccount() != null
-                                ? transaction.getSenderAccount().getAccountNumber() : null)
-                        .receiverAccountNumber(transaction.getReceiverAccount() != null
-                                ? transaction.getReceiverAccount().getAccountNumber() : null)
-                        .build())
-                .collect(Collectors.toList());
+                .map(TransactionMapper :: toResponseDto)
+                .toList();
     }
-
-
 }

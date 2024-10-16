@@ -1,14 +1,15 @@
 package com.ideas2it.bankingSystem.service.serviceImpl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import com.ideas2it.bankingSystem.model.Role;
 import com.ideas2it.bankingSystem.model.RoleType;
 import com.ideas2it.bankingSystem.repository.RoleRepository;
 import com.ideas2it.bankingSystem.service.RoleService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

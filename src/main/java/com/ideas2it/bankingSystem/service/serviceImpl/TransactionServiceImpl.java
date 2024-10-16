@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import com.ideas2it.bankingSystem.service.AdminService;
+import com.ideas2it.bankingSystem.mapper.TransactionMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -61,15 +61,7 @@ public class TransactionServiceImpl implements TransactionService {
         receiverAccount.setBalance(receiverAccount.getBalance() + transferRequestDto.getAmount());
         accountRepository.save(receiverAccount);
         Transaction transaction = createTransferTransaction(senderAccount, receiverAccount, transferRequestDto);
-        return TransactionResponseDto.builder()
-                .transactionId(transaction.getTransactionId())
-                .description(transaction.getDescription())
-                .amount(transaction.getAmount())
-                .transactionDate(transaction.getTransactionDate())
-                .transactionType(transaction.getTransactionType())
-                .senderAccountNumber(senderAccount.getAccountNumber())
-                .receiverAccountNumber(receiverAccount.getAccountNumber())
-                .build();
+        return TransactionMapper.toResponseDto(transaction);
     }
 
     @Override
@@ -77,23 +69,13 @@ public class TransactionServiceImpl implements TransactionService {
         Account account = getAccountByNumber(accountNumber, "Account not found");
         List<Transaction> transactions = transactionRepository.findByAccountOrSenderAccountOrReceiverAccount(account, account, account);
         return transactions.stream()
-                .map(transaction -> TransactionResponseDto.builder()
-                        .transactionId(transaction.getTransactionId())
-                        .description(transaction.getDescription())
-                        .amount(transaction.getAmount())
-                        .transactionDate(transaction.getTransactionDate())
-                        .transactionType(transaction.getTransactionType())
-                        .senderAccountNumber(transaction.getSenderAccount() != null
-                                ? transaction.getSenderAccount().getAccountNumber() : null)
-                        .receiverAccountNumber(transaction.getReceiverAccount() != null
-                                ? transaction.getReceiverAccount().getAccountNumber() : null)
-                        .build())
-                .collect(Collectors.toList());
+                .map(TransactionMapper :: toResponseDto)
+                .toList();
     }
 
     private Transaction saveTransaction(Account account, TransactionRequestDto request, TransactionType type, Account otherAccount) {
         String transactionId = generateTransactionId();
-        Transaction transaction = Transaction.builder()
+        return transactionRepository.save(Transaction.builder()
                 .transactionId(transactionId)
                 .amount(request.getAmount())
                 .transactionType(type)
@@ -102,8 +84,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .receiverAccount(type == TransactionType.CREDIT ? account : otherAccount)
                 .senderAccount(type == TransactionType.DEBIT ? account : otherAccount)
                 .transactionDate(LocalDateTime.now())
-                .build();
-        return transactionRepository.save(transaction);
+                .build());
     }
 
     private Transaction createTransferTransaction(Account senderAccount, Account receiverAccount, TransferRequestDto transferRequestDto) {

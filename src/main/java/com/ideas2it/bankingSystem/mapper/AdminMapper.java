@@ -1,9 +1,10 @@
 package com.ideas2it.bankingSystem.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.ideas2it.bankingSystem.dto.AdminLoginDto;
 import com.ideas2it.bankingSystem.dto.AdminResponseDto;
 import com.ideas2it.bankingSystem.model.User;
-import org.springframework.stereotype.Component;
 
 @Component
 public class AdminMapper {
