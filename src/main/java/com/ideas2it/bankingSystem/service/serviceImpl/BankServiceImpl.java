@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.ideas2it.bankingSystem.exception.UnauthorizedException;
 import com.ideas2it.bankingSystem.model.RoleType;
-import com.ideas2it.bankingSystem.model.User;
 import com.ideas2it.bankingSystem.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,6 @@ import com.ideas2it.bankingSystem.dto.BankDto;
 import com.ideas2it.bankingSystem.exception.AlreadyExistsException;
 import com.ideas2it.bankingSystem.exception.ResourceNotFoundException;
 import com.ideas2it.bankingSystem.mapper.BankMapper;
-import com.ideas2it.bankingSystem.model.Bank;
 import com.ideas2it.bankingSystem.repository.BankRepository;
 import com.ideas2it.bankingSystem.service.BankService;
 
@@ -33,7 +32,7 @@ public class BankServiceImpl implements BankService {
             LOGGER.warn("Bank Already exists", bankDto.getName());
             throw new AlreadyExistsException("Bank Already exists " + bankDto.getName());
         }
-        Bank bank = BankMapper.toEntity(bankDto);
+        val bank = BankMapper.toEntity(bankDto);
         bankRepository.save(bank);
         LOGGER.info("Bank created with Id : " + bank.getId());
         return BankMapper.toDto(bank);
@@ -41,7 +40,7 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public List<BankDto> getAllBanks() {
-        List<BankDto> bankDtos = bankRepository.findByIsDeletedFalse()
+        val bankDtos = bankRepository.findByIsDeletedFalse()
                 .stream()
                 .map(BankMapper :: toDto)
                 .toList();
@@ -54,7 +53,7 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public BankDto getBankById(Long id) {
-        Bank bank = bankRepository.findByIdAndIsDeletedFalse(id);
+        val bank = bankRepository.findByIdAndIsDeletedFalse(id);
         if (null == bank) {
             LOGGER.warn("No Bank with given Id found", id);
             throw new ResourceNotFoundException("No Bank found : " + id);
@@ -65,7 +64,7 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public BankDto updateBank(Long id, BankDto bankDto) {
-        Bank bank = bankRepository.findByIdAndIsDeletedFalse(id);
+        var bank = bankRepository.findByIdAndIsDeletedFalse(id);
         if (null == bank) {
             LOGGER.warn("No Bank available with given Id");
             throw new ResourceNotFoundException("No Bank with id " + id + " is found");
@@ -76,7 +75,7 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public void deleteBank(Long id) {
-        Bank bank = bankRepository.findByIdAndIsDeletedFalse(id);
+        var bank = bankRepository.findByIdAndIsDeletedFalse(id);
         if (null == bank) {
             LOGGER.warn("No Bank available with given Id");
             throw new ResourceNotFoundException("No Bank with id " + id + " is found");
@@ -87,7 +86,7 @@ public class BankServiceImpl implements BankService {
     }
 
     private void checkAdmin(String email) {
-        User user = userRepository.findUserByEmail(email)
+        val user = userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
         if (!user.getRole().getRoleType().equals(RoleType.ADMIN) || !"admin@example.com".equals(email)) {
             throw new UnauthorizedException("Access Denied! Only the system admin can perform this operation.");
