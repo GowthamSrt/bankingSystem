@@ -75,8 +75,6 @@ public class TransactionServiceImpl implements TransactionService {
         String transactionId = generateTransactionId();
         Transaction transaction = TransactionMapper.saveTransaction(account, request, type, otherAccount, transactionId);
         return transactionRepository.save(transaction);
-
-
     }
 
     private Transaction createTransferTransaction(Account senderAccount, Account receiverAccount, TransferRequestDto transferRequestDto) {
