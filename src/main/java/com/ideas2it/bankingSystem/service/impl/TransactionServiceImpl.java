@@ -1,6 +1,5 @@
 package com.ideas2it.bankingSystem.service.impl;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
@@ -74,29 +73,15 @@ public class TransactionServiceImpl implements TransactionService {
 
     private Transaction saveTransaction(Account account, TransactionRequestDto request, TransactionType type, Account otherAccount) {
         String transactionId = generateTransactionId();
-        return transactionRepository.save(Transaction.builder()
-                .transactionId(transactionId)
-                .amount(request.getAmount())
-                .transactionType(type)
-                .description(request.getDescription())
-                .account(account)
-                .receiverAccount(type == TransactionType.CREDIT ? account : otherAccount)
-                .senderAccount(type == TransactionType.DEBIT ? account : otherAccount)
-                .transactionDate(LocalDateTime.now())
-                .build());
+        Transaction transaction = TransactionMapper.saveTransaction(account, request, type, otherAccount, transactionId);
+        return transactionRepository.save(transaction);
+
+
     }
 
     private Transaction createTransferTransaction(Account senderAccount, Account receiverAccount, TransferRequestDto transferRequestDto) {
-        Transaction transaction = Transaction.builder()
-                .transactionId(generateTransactionId())
-                .description(transferRequestDto.getDescription())
-                .amount(transferRequestDto.getAmount())
-                .transactionType(TransactionType.TRANSFER)
-                .transactionDate(LocalDateTime.now())
-                .account(receiverAccount)
-                .senderAccount(senderAccount)
-                .receiverAccount(receiverAccount)
-                .build();
+        String transactionId = generateTransactionId();
+        Transaction transaction = TransactionMapper.createTransfer(senderAccount, receiverAccount, transferRequestDto, transactionId);
         return transactionRepository.save(transaction);
     }
 

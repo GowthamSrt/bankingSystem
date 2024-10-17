@@ -17,5 +17,4 @@ public interface TransactionService {
     TransactionResponseDto processTransfer(String accountNumber, TransferRequestDto transferRequestDto);
 
     List<TransactionResponseDto> getTransactionHistory(String accountNumber);
-
 }
